@@ -1,0 +1,30 @@
+---
+- name: Install yum utils
+  package:
+    name: yum-utils
+    state: present
+- name: install openJDK 8
+  apt:
+    name: java-1.8.0-openjdk.x86_64
+    state: present
+- name: download and extract
+  unarchive:
+    src: "{{ tomcat_binary_url }}"
+    dest: "/opt/"
+    remote_src: yes
+  sudo: True
+- name: Tomcat8 Installation
+  apt:
+    name: tomcat8
+    state: present
+    enabled: yes
+    update_cache: yes
+- name: Running tomcat on {{ansible_hostname}}
+  debug:
+    msg: Running tomcat now on desired host
+  notify: restart tomcat
+- name: Stopping tomcat8 on {{ansible_hostname}}
+  debug:
+    msg: Tomcat8 now has stopped
+  notify: stop tomcat
+    

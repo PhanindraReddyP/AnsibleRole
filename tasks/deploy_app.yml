@@ -1,0 +1,10 @@
+---
+- name: Copy jenkins.war to tomcat webapps
+  copy:
+    src: /root/myrole/tasks/jenkins.war
+    dest: /opt/tomcat8/webapps/jenkins.war
+    mode: '0644'
+- name: Running tomcat on {{ansible_hostname}}
+  debug:
+    msg: Running tomcat after copying war file
+  notify: restart tomcat

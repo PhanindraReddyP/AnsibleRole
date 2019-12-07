@@ -1,0 +1,5 @@
+---
+- name: stop tomcat app on {{ansible_hostname}}
+  service:
+    name: tomcat
+    state: stopped
